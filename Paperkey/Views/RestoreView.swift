@@ -148,7 +148,12 @@ struct RestoreView: View {
             }
             DisclosureGroup(isExpanded: $manualSecretExpanded) {
                 TextEditor(text: $viewModel.secretInput)
-                    .frame(minHeight: 160)
+                    .frame(minHeight: 120, maxHeight: 200)
+                    .scrollContentBackground(.hidden)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(UIColor.secondarySystemBackground))
+                    )
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.secondary.opacity(0.2))

@@ -116,8 +116,17 @@ struct ExtractView: View {
                             .font(.system(.body, design: .monospaced))
                             .textSelection(.enabled)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(UIColor.secondarySystemBackground))
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.secondary.opacity(0.2))
+                            )
                     }
-                    .frame(minHeight: 200)
+                    .frame(minHeight: 120, maxHeight: 200)
                     Button {
                         guard let exportText = viewModel.extractedText else { return }
                         exportDocument = .text(exportText)
@@ -127,7 +136,7 @@ struct ExtractView: View {
                         Label("Export as TXT", systemImage: "square.and.arrow.up")
                     }
                     .buttonStyle(.borderedProminent)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
         case .binary:
