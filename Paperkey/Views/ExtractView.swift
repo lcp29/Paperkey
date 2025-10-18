@@ -60,6 +60,13 @@ struct ExtractView: View {
                 }
             }
         }
+        .alert(item: $viewModel.pendingAlert) { alert in
+            Alert(
+                title: Text(alert.title),
+                message: Text(alert.message),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     private var headerSection: some View {

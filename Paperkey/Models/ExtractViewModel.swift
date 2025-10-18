@@ -41,16 +41,21 @@ final class ExtractViewModel: ObservableObject {
     @Published private(set) var qrImageData: Data?
     @Published var correctionLevel: QRCorrectionLevel = .medium {
         didSet {
-            guard selectedFormat == .binary, let currentSecret = secretKeyData else { return }
-            Task { await runExtraction(on: currentSecret) }
+            guard selectedFormat == .binary,
+                  let currentSecret = secretKeyData,
+                  correctionLevel != oldValue else { return }
+            previousCorrectionLevel = oldValue
+            Task { await runExtraction(on: currentSecret, attemptedCorrection: correctionLevel, previousCorrection: oldValue) }
         }
     }
     @Published private(set) var isProcessing = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var fileName: String = "No file selected"
     @Published private(set) var lastUpdated: Date?
+    @Published var pendingAlert: AlertState?
     
     private let outputWidth: UInt = 78
+    private var previousCorrectionLevel: QRCorrectionLevel?
     
     func importSecretKey(from url: URL) async {
         errorMessage = nil
@@ -69,17 +74,22 @@ final class ExtractViewModel: ObservableObject {
             qrImageData = nil
         }
     }
-    
+
     func setError(message: String) {
         errorMessage = message
     }
     
     private func runExtraction(on data: Data) async {
+        await runExtraction(on: data, attemptedCorrection: correctionLevel, previousCorrection: nil)
+    }
+    
+    private func runExtraction(on data: Data, attemptedCorrection: QRCorrectionLevel, previousCorrection: QRCorrectionLevel?) async {
         isProcessing = true
+        defer { isProcessing = false }
         do {
             let format = selectedFormat
-            let correction = correctionLevel
-            let payload = try await Task.detached(priority: .userInitiated) { 
+            let correction = attemptedCorrection
+            let payload = try await Task.detached(priority: .userInitiated) {
                 () -> ExtractionPayload in
                 guard let result = await PaperkeyKit.extract(input: data, outputType: format.kitType, outputWidth: self.outputWidth) else {
                     throw ExtractionError.extractionFailed
@@ -116,12 +126,21 @@ final class ExtractViewModel: ObservableObject {
             errorMessage = nil
             lastUpdated = Date()
         } catch {
-            errorMessage = error.localizedDescription
+            if case ExtractionError.qrGenerationFailed = error,
+               let previous = previousCorrection {
+                correctionLevel = previous
+                previousCorrectionLevel = nil
+                pendingAlert = .init(
+                    title: "QR Generation Failed",
+                    message: "The selected correction level could not produce a QR code. It was reset to \(previous.displayName)."
+                )
+            } else {
+                errorMessage = error.localizedDescription
+            }
             extractedText = nil
             qrImage = nil
             qrImageData = nil
         }
-        isProcessing = false
     }
     
     private func readData(from url: URL) throws -> Data {
@@ -159,6 +178,12 @@ extension ExtractViewModel {
     private enum ExtractionPayload: Sendable {
         case text(String)
         case qrPayload(Data)
+    }
+    
+    struct AlertState: Identifiable, Sendable {
+        let id = UUID()
+        let title: String
+        let message: String
     }
     
     enum ExtractionError: LocalizedError {
@@ -208,6 +233,15 @@ extension ExtractViewModel {
             case .medium: return "M"
             case .quartile: return "Q"
             case .high: return "H"
+            }
+        }
+        
+        var displayName: String {
+            switch self {
+            case .low: return "Low"
+            case .medium: return "Medium"
+            case .quartile: return "Quartile"
+            case .high: return "High"
             }
         }
     }
