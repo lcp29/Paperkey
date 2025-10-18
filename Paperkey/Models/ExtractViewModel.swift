@@ -38,6 +38,7 @@ final class ExtractViewModel: ObservableObject {
     @Published private(set) var secretKeyData: Data?
     @Published private(set) var extractedText: String?
     @Published private(set) var qrImage: Image?
+    @Published private(set) var qrImageData: Data?
     @Published private(set) var isProcessing = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var fileName: String = "No file selected"
@@ -59,6 +60,7 @@ final class ExtractViewModel: ObservableObject {
             secretKeyData = nil
             extractedText = nil
             qrImage = nil
+            qrImageData = nil
         }
     }
     
@@ -91,12 +93,17 @@ final class ExtractViewModel: ObservableObject {
             case .text(let text):
                 extractedText = text
                 qrImage = nil
+                qrImageData = nil
             case .qrPayload(let data):
                 guard let image = Self.makeQRCode(from: data) else {
                     throw ExtractionError.qrGenerationFailed
                 }
                 extractedText = nil
                 qrImage = Image(uiImage: image)
+                guard let pngData = image.pngData() else {
+                    throw ExtractionError.qrGenerationFailed
+                }
+                qrImageData = pngData
             }
             
             errorMessage = nil
@@ -105,6 +112,7 @@ final class ExtractViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             extractedText = nil
             qrImage = nil
+            qrImageData = nil
         }
         isProcessing = false
     }
@@ -160,6 +168,20 @@ extension ExtractViewModel {
             case .qrGenerationFailed:
                 return "Could not create a QR code for the extracted data."
             }
+        }
+    }
+    
+    func suggestedExportName(for format: OutputFormat) -> String {
+        let base = secretKeyURL?
+            .deletingPathExtension()
+            .lastPathComponent
+            .replacingOccurrences(of: " ", with: "-")
+            .lowercased() ?? "paperkey"
+        switch format {
+        case .binary:
+            return "\(base)-qr"
+        case .base16:
+            return "\(base)-secret"
         }
     }
 }

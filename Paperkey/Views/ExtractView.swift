@@ -11,6 +11,9 @@ import UniformTypeIdentifiers
 struct ExtractView: View {
     @ObservedObject var viewModel: ExtractViewModel
     @State private var showFileImporter = false
+    @State private var isExporting = false
+    @State private var exportDocument = ExtractExportDocument.placeholder
+    @State private var exportFilename = "paperkey-export"
     
     var body: some View {
         ScrollView {
@@ -40,6 +43,18 @@ struct ExtractView: View {
             case .success(let url):
                 Task { await viewModel.importSecretKey(from: url[0]) }
             case .failure(let error):
+                Task { @MainActor in
+                    viewModel.setError(message: error.localizedDescription)
+                }
+            }
+        }
+        .fileExporter(
+            isPresented: $isExporting,
+            document: exportDocument,
+            contentType: exportDocument.contentType,
+            defaultFilename: exportFilename
+        ) { result in
+            if case .failure(let error) = result {
                 Task { @MainActor in
                     viewModel.setError(message: error.localizedDescription)
                 }
@@ -103,6 +118,16 @@ struct ExtractView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(minHeight: 200)
+                    Button {
+                        guard let exportText = viewModel.extractedText else { return }
+                        exportDocument = .text(exportText)
+                        exportFilename = "\(viewModel.suggestedExportName(for: .base16)).txt"
+                        isExporting = true
+                    } label: {
+                        Label("Export as TXT", systemImage: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         case .binary:
@@ -121,6 +146,15 @@ struct ExtractView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
+                    Button {
+                        guard let data = viewModel.qrImageData else { return }
+                        exportDocument = .png(data)
+                        exportFilename = "\(viewModel.suggestedExportName(for: .binary)).png"
+                        isExporting = true
+                    } label: {
+                        Label("Export as PNG", systemImage: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -131,5 +165,62 @@ struct ExtractView: View {
 #Preview {
     NavigationStack {
         ExtractView(viewModel: ExtractViewModel())
+    }
+}
+
+private struct ExtractExportDocument: FileDocument {
+    enum Payload {
+        case text(String)
+        case png(Data)
+        case empty
+    }
+    
+    static var readableContentTypes: [UTType] { [] }
+    static var writableContentTypes: [UTType] { [.plainText, .png] }
+    
+    var payload: Payload
+    
+    var contentType: UTType {
+        switch payload {
+        case .text:
+            return .plainText
+        case .png:
+            return .png
+        case .empty:
+            return .plainText
+        }
+    }
+    
+    static var placeholder: ExtractExportDocument {
+        ExtractExportDocument(payload: .empty)
+    }
+    
+    init(payload: Payload) {
+        self.payload = payload
+    }
+    
+    init(configuration: ReadConfiguration) throws {
+        self.payload = .empty
+    }
+    
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        switch payload {
+        case .text(let string):
+            return FileWrapper(regularFileWithContents: Data(string.utf8))
+        case .png(let data):
+            return FileWrapper(regularFileWithContents: data)
+        case .empty:
+            return FileWrapper(regularFileWithContents: Data())
+        }
+    }
+}
+
+private extension ExtractExportDocument {
+    static func text(_ string: String) -> ExtractExportDocument {
+        ExtractExportDocument(payload: .text(string))
+    }
+    
+    static func png(_ data: Data) -> ExtractExportDocument {
+        ExtractExportDocument(payload: .png(data))
     }
 }
