@@ -6,11 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		824F7AB72EA357040046CC2E /* PaperkeyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 824F7AB62EA357040046CC2E /* PaperkeyKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		827E173C2E9CD30E0089F24A /* Paperkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paperkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		824F7A942EA356F10046CC2E /* Packages */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Packages;
+			sourceTree = "<group>";
+		};
 		827E173E2E9CD30E0089F24A /* Paperkey */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Paperkey;
@@ -23,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824F7AB72EA357040046CC2E /* PaperkeyKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,6 +44,7 @@
 			children = (
 				827E173E2E9CD30E0089F24A /* Paperkey */,
 				827E173D2E9CD30E0089F24A /* Products */,
+				824F7A942EA356F10046CC2E /* Packages */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,10 +72,12 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				824F7A942EA356F10046CC2E /* Packages */,
 				827E173E2E9CD30E0089F24A /* Paperkey */,
 			);
 			name = Paperkey;
 			packageProductDependencies = (
+				824F7AB62EA357040046CC2E /* PaperkeyKit */,
 			);
 			productName = Paperkey;
 			productReference = 827E173C2E9CD30E0089F24A /* Paperkey.app */;
@@ -94,6 +107,9 @@
 			);
 			mainGroup = 827E17332E9CD30E0089F24A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				824F7AB52EA357040046CC2E /* XCLocalSwiftPackageReference "Packages/PaperkeyKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 827E173D2E9CD30E0089F24A /* Products */;
 			projectDirPath = "";
@@ -256,11 +272,15 @@
 				DEVELOPMENT_TEAM = 452A6492NX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Paperkey;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is required to scan QR codes for restoring paperkey secrets.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -288,11 +308,15 @@
 				DEVELOPMENT_TEAM = 452A6492NX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Paperkey;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is required to scan QR codes for restoring paperkey secrets.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,6 +356,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		824F7AB52EA357040046CC2E /* XCLocalSwiftPackageReference "Packages/PaperkeyKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/PaperkeyKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		824F7AB62EA357040046CC2E /* PaperkeyKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PaperkeyKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 827E17342E9CD30E0089F24A /* Project object */;
 }

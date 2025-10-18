@@ -2,10 +2,11 @@
 //  PaperkeyApp.swift
 //  Paperkey
 //
-//  Created by 李昌埔 on 2025/10/13.
+//  Created by helmholtz on 2025/10/13.
 //
 
 import SwiftUI
+import PaperkeyKit
 
 @main
 struct PaperkeyApp: App {
