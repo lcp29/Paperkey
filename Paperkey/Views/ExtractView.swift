@@ -144,6 +144,13 @@ struct ExtractView: View {
                 VStack(alignment: .center, spacing: 12) {
                     Text("Binary Output QR")
                         .font(.headline)
+                    Picker("Error Correction", selection: $viewModel.correctionLevel) {
+                        ForEach(ExtractViewModel.QRCorrectionLevel.allCases) { level in
+                            Text(level.rawValue).tag(level)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
                     qr
                         .resizable()
                         .interpolation(.none)

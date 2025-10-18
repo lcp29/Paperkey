@@ -39,6 +39,12 @@ final class ExtractViewModel: ObservableObject {
     @Published private(set) var extractedText: String?
     @Published private(set) var qrImage: Image?
     @Published private(set) var qrImageData: Data?
+    @Published var correctionLevel: QRCorrectionLevel = .medium {
+        didSet {
+            guard selectedFormat == .binary, let currentSecret = secretKeyData else { return }
+            Task { await runExtraction(on: currentSecret) }
+        }
+    }
     @Published private(set) var isProcessing = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var fileName: String = "No file selected"
@@ -72,6 +78,7 @@ final class ExtractViewModel: ObservableObject {
         isProcessing = true
         do {
             let format = selectedFormat
+            let correction = correctionLevel
             let payload = try await Task.detached(priority: .userInitiated) { 
                 () -> ExtractionPayload in
                 guard let result = await PaperkeyKit.extract(input: data, outputType: format.kitType, outputWidth: self.outputWidth) else {
@@ -95,7 +102,7 @@ final class ExtractViewModel: ObservableObject {
                 qrImage = nil
                 qrImageData = nil
             case .qrPayload(let data):
-                guard let image = Self.makeQRCode(from: data) else {
+                guard let image = Self.makeQRCode(from: data, correctionLevel: correction) else {
                     throw ExtractionError.qrGenerationFailed
                 }
                 extractedText = nil
@@ -132,10 +139,10 @@ final class ExtractViewModel: ObservableObject {
         return try Data(contentsOf: url)
     }
     
-    private static func makeQRCode(from data: Data) -> UIImage? {
+    private static func makeQRCode(from data: Data, correctionLevel: QRCorrectionLevel) -> UIImage? {
         let filter = CIFilter.qrCodeGenerator()
         filter.message = data
-        filter.correctionLevel = "M"
+        filter.correctionLevel = correctionLevel.ciValue
         
         guard let ciImage = filter.outputImage else { return nil }
         let transform = CGAffineTransform(scaleX: 10, y: 10)
@@ -182,6 +189,26 @@ extension ExtractViewModel {
             return "\(base)-qr"
         case .base16:
             return "\(base)-secret"
+        }
+    }
+}
+
+extension ExtractViewModel {
+    enum QRCorrectionLevel: String, CaseIterable, Identifiable {
+        case low = "L (7%)"
+        case medium = "M (15%)"
+        case quartile = "Q (25%)"
+        case high = "H (30%)"
+        
+        var id: String { rawValue }
+        
+        var ciValue: String {
+            switch self {
+            case .low: return "L"
+            case .medium: return "M"
+            case .quartile: return "Q"
+            case .high: return "H"
+            }
         }
     }
 }
