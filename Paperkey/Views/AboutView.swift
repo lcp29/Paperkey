@@ -62,10 +62,10 @@ private struct LicenseView: View {
     private let licenseText = LicenseView.loadLicense()
     
     var body: some View {
-        ScrollView {
+        ScrollView([.vertical, .horizontal]) {
             Text(licenseText)
                 .font(.system(.body, design: .monospaced))
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.leading)
                 .padding()
         }
         .navigationTitle(String(localized: "License"))
