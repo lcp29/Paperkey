@@ -156,6 +156,28 @@ final class RestoreViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+
+    func importSecretBinary(from url: URL) async {
+        errorMessage = nil
+        do {
+            let data = try readData(from: url)
+            guard !data.isEmpty else {
+                throw RestorationError.unrecognizedSecrets
+            }
+            scannedBinaryPayload = data
+            secretFileContents = nil
+            secretInput.removeAll()
+            secretFileName = url.lastPathComponent
+            hasImportedSecret = true
+        } catch {
+            scannedBinaryPayload = nil
+            if secretFileContents == nil {
+                secretFileName = String(localized: "No secret file selected")
+                hasImportedSecret = false
+            }
+            errorMessage = error.localizedDescription
+        }
+    }
     
     func clearImportedSecret() {
         secretFileContents = nil

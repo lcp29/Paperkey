@@ -1,32 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Base16 (Text)" : {
+    "Base16" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Base16文本"
-          }
-        }
-      }
-    },
-    "Binary (QR Code)" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "二维码"
-          }
-        }
-      }
-    },
-    "Binary Output QR" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "二维码输出"
+            "value" : "Base16"
           }
         }
       }
@@ -97,6 +77,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导出"
+          }
+        }
+      }
+    },
+    "Export as BIN" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出为 BIN 文件"
           }
         }
       }
@@ -187,6 +177,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导入公钥"
+          }
+        }
+      }
+    },
+    "Import Secret BIN" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入 BIN 密钥文件"
           }
         }
       }
@@ -367,6 +367,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "高"
+          }
+        }
+      }
+    },
+    "Raw Binary" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RAW二进制"
+          }
+        }
+      }
+    },
+    "Raw Binary Output" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RAW二进制输出"
           }
         }
       }

@@ -149,7 +149,7 @@ struct ExtractView: View {
         case .binary:
             if let qr = viewModel.qrImage {
                 VStack(alignment: .center, spacing: 12) {
-                    Text("Binary Output QR")
+                    Text("Raw Binary Output")
                         .font(.headline)
                     Picker("Error Correction", selection: $viewModel.correctionLevel) {
                         ForEach(ExtractViewModel.QRCorrectionLevel.allCases) { level in
@@ -169,15 +169,27 @@ struct ExtractView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
-                    Button {
-                        guard let data = viewModel.qrImageData else { return }
-                        exportDocument = .png(data)
-                        exportFilename = "\(viewModel.suggestedExportName(for: .binary)).png"
-                        isExporting = true
-                    } label: {
-                        Label("Export as PNG", systemImage: "square.and.arrow.up")
+                    HStack(spacing: 12) {
+                        Button {
+                            guard let data = viewModel.qrImageData else { return }
+                            exportDocument = .png(data)
+                            exportFilename = "\(viewModel.suggestedExportName(for: .binary)).png"
+                            isExporting = true
+                        } label: {
+                            Label("Export as PNG", systemImage: "square.and.arrow.up")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        
+                        Button {
+                            guard let payload = viewModel.binaryPayload else { return }
+                            exportDocument = .binary(payload)
+                            exportFilename = "\(viewModel.suggestedRawBinaryExportName()).bin"
+                            isExporting = true
+                        } label: {
+                            Label("Export as BIN", systemImage: "arrow.down.doc")
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
-                    .buttonStyle(.borderedProminent)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -195,11 +207,12 @@ private struct ExtractExportDocument: FileDocument {
     enum Payload {
         case text(String)
         case png(Data)
+        case binary(Data)
         case empty
     }
     
     static var readableContentTypes: [UTType] { [] }
-    static var writableContentTypes: [UTType] { [.plainText, .png] }
+    static var writableContentTypes: [UTType] { [.plainText, .png, .data] }
     
     var payload: Payload
     
@@ -209,6 +222,8 @@ private struct ExtractExportDocument: FileDocument {
             return .plainText
         case .png:
             return .png
+        case .binary:
+            return .data
         case .empty:
             return .plainText
         }
@@ -232,6 +247,8 @@ private struct ExtractExportDocument: FileDocument {
             return FileWrapper(regularFileWithContents: Data(string.utf8))
         case .png(let data):
             return FileWrapper(regularFileWithContents: data)
+        case .binary(let data):
+            return FileWrapper(regularFileWithContents: data)
         case .empty:
             return FileWrapper(regularFileWithContents: Data())
         }
@@ -245,5 +262,9 @@ private extension ExtractExportDocument {
     
     static func png(_ data: Data) -> ExtractExportDocument {
         ExtractExportDocument(payload: .png(data))
+    }
+
+    static func binary(_ data: Data) -> ExtractExportDocument {
+        ExtractExportDocument(payload: .binary(data))
     }
 }

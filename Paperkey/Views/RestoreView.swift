@@ -15,10 +15,12 @@ struct RestoreView: View {
     @State private var manualSecretExpanded = false
     @State private var showImporter = false
     @State private var importerDestination: ImportDestination?
+    @State private var importerAllowedTypes: [UTType] = [.data, .utf8PlainText, .plainText, .text]
     
     private enum ImportDestination {
         case publicKey
-        case secret
+        case secretText
+        case secretBinary
     }
     
     var body: some View {
@@ -39,6 +41,7 @@ struct RestoreView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     importerDestination = .publicKey
+                    importerAllowedTypes = [.data]
                     showImporter = true
                 } label: {
                     Label("Import Public Key", systemImage: "square.and.arrow.down")
@@ -47,7 +50,7 @@ struct RestoreView: View {
         }
         .fileImporter(
             isPresented: $showImporter,
-            allowedContentTypes: [.data, .utf8PlainText, .plainText, .text],
+            allowedContentTypes: importerAllowedTypes,
             allowsMultipleSelection: false
         ) { result in
             guard let destination = importerDestination else { return }
@@ -56,8 +59,10 @@ struct RestoreView: View {
                 switch destination {
                 case .publicKey:
                     Task { await viewModel.importPublicKey(from: url[0]) }
-                case .secret:
+                case .secretText:
                     Task { await viewModel.importSecretFile(from: url[0]) }
+                case .secretBinary:
+                    Task { await viewModel.importSecretBinary(from: url[0]) }
                 }
             case .failure(let error):
                 Task { @MainActor in
@@ -106,6 +111,7 @@ struct RestoreView: View {
                 .foregroundStyle(.secondary)
             Button {
                 importerDestination = .publicKey
+                importerAllowedTypes = [.data]
                 showImporter = true
             } label: {
                 Label("Import Public Key", systemImage: "square.and.arrow.down")
@@ -119,14 +125,25 @@ struct RestoreView: View {
             Text("Secret Data")
                 .font(.headline)
             secretFileStatus
-            HStack {
+            HStack(spacing: 12) {
                 Button {
-                    importerDestination = .secret
+                    importerDestination = .secretText
+                    importerAllowedTypes = [.utf8PlainText, .plainText, .text]
                     showImporter = true
                 } label: {
                     Label("Import Secret File", systemImage: "doc.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(viewModel.isProcessing)
+                
+                Button {
+                    importerDestination = .secretBinary
+                    importerAllowedTypes = [.data]
+                    showImporter = true
+                } label: {
+                    Label("Import Secret BIN", systemImage: "tray.and.arrow.down")
+                }
+                .buttonStyle(.bordered)
                 .disabled(viewModel.isProcessing)
                 
                 Button {

@@ -15,8 +15,8 @@ internal import Combine
 @MainActor
 final class ExtractViewModel: ObservableObject {
     enum OutputFormat: String, CaseIterable, Identifiable, Sendable {
-        case binary = "Binary (QR)"
-        case base16 = "Base16 (Text)"
+        case binary = "Raw Binary"
+        case base16 = "Base16"
         
         var id: String { rawValue }
         
@@ -29,8 +29,8 @@ final class ExtractViewModel: ObservableObject {
         
         var displayName: String {
             switch self {
-            case .binary: String(localized: "Binary (QR Code)")
-            case .base16: String(localized: "Base16 (Text)")
+            case .binary: String(localized: "Raw Binary")
+            case .base16: String(localized: "Base16")
             }
         }
     }
@@ -46,6 +46,7 @@ final class ExtractViewModel: ObservableObject {
     @Published private(set) var extractedText: String?
     @Published private(set) var qrImage: Image?
     @Published private(set) var qrImageData: Data?
+    @Published private(set) var binaryPayload: Data?
     @Published var correctionLevel: QRCorrectionLevel = .medium {
         didSet {
             guard selectedFormat == .binary,
@@ -79,6 +80,7 @@ final class ExtractViewModel: ObservableObject {
             extractedText = nil
             qrImage = nil
             qrImageData = nil
+            binaryPayload = nil
         }
     }
 
@@ -118,6 +120,7 @@ final class ExtractViewModel: ObservableObject {
                 extractedText = text
                 qrImage = nil
                 qrImageData = nil
+                binaryPayload = nil
             case .qrPayload(let data):
                 guard let image = Self.makeQRCode(from: data, correctionLevel: correction) else {
                     throw ExtractionError.qrGenerationFailed
@@ -128,6 +131,7 @@ final class ExtractViewModel: ObservableObject {
                     throw ExtractionError.qrGenerationFailed
                 }
                 qrImageData = pngData
+                binaryPayload = data
             }
             
             errorMessage = nil
@@ -147,6 +151,7 @@ final class ExtractViewModel: ObservableObject {
             extractedText = nil
             qrImage = nil
             qrImageData = nil
+            binaryPayload = nil
         }
     }
     
@@ -211,17 +216,25 @@ extension ExtractViewModel {
     }
     
     func suggestedExportName(for format: OutputFormat) -> String {
-        let base = secretKeyURL?
-            .deletingPathExtension()
-            .lastPathComponent
-            .replacingOccurrences(of: " ", with: "-")
-            .lowercased() ?? "paperkey"
+        let base = exportBaseName()
         switch format {
         case .binary:
             return "\(base)-qr"
         case .base16:
             return "\(base)-secret"
         }
+    }
+
+    func suggestedRawBinaryExportName() -> String {
+        "\(exportBaseName())-raw"
+    }
+
+    private func exportBaseName() -> String {
+        secretKeyURL?
+            .deletingPathExtension()
+            .lastPathComponent
+            .replacingOccurrences(of: " ", with: "-")
+            .lowercased() ?? "paperkey"
     }
 }
 
