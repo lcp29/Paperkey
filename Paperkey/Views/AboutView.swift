@@ -31,7 +31,7 @@ struct AboutView: View {
                     Text(appName)
                         .font(.title2)
                         .fontWeight(.semibold)
-                    Text("Paperkey helps you protect your GPG secret keys with offline backups.")
+                    Text(String(localized: "Paperkey helps you protect your GPG secret keys with offline backups."))
                         .font(.body)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -40,17 +40,60 @@ struct AboutView: View {
             }
             
             Section {
-                LabeledContent("Version", value: appVersion)
-                LabeledContent("Build", value: appBuild)
+                LabeledContent(String(localized: "Version"), value: appVersion)
+                LabeledContent(String(localized: "Build"), value: appBuild)
+            }
+            
+            Section(String(localized: "Legal")) {
+                LabeledContent(String(localized: "License"), value: String(localized: "GNU GPL v2"))
+                NavigationLink {
+                    LicenseView()
+                } label: {
+                    Label(String(localized: "View Full License"), systemImage: "doc.text.magnifyingglass")
+                }
             }
         }
-        .navigationTitle("About")
+        .navigationTitle(String(localized: "About"))
         .listStyle(.insetGrouped)
+    }
+}
+
+private struct LicenseView: View {
+    private let licenseText = LicenseView.loadLicense()
+    
+    var body: some View {
+        ScrollView {
+            Text(licenseText)
+                .font(.system(.body, design: .monospaced))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+        }
+        .navigationTitle(String(localized: "License"))
+        .background(Color(uiColor: .systemGroupedBackground))
+    }
+    
+    private static func loadLicense() -> String {
+        let notFound = String(localized: "License file not found.")
+        let loadFailed = String(localized: "Unable to load license file.")
+        guard let url = Bundle.main.url(forResource: "LICENSE", withExtension: "txt") else {
+            return notFound
+        }
+        do {
+            return try String(contentsOf: url)
+        } catch {
+            return loadFailed
+        }
     }
 }
 
 #Preview {
     NavigationStack {
         AboutView()
+    }
+}
+
+#Preview("License") {
+    NavigationStack {
+        LicenseView()
     }
 }
