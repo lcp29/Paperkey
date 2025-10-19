@@ -1,0 +1,116 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Binary Output QR" : {
+
+    },
+    "Clear Text" : {
+
+    },
+    "Close" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
+    },
+    "Error Correction" : {
+
+    },
+    "Export" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出"
+          }
+        }
+      }
+    },
+    "Export as PNG" : {
+
+    },
+    "Export as TXT" : {
+
+    },
+    "Extract" : {
+
+    },
+    "Extracted Base16 Output" : {
+
+    },
+    "Ignore CRC Errors" : {
+
+    },
+    "Import Public Key" : {
+
+    },
+    "Import Secret File" : {
+
+    },
+    "Import Secret Key" : {
+
+    },
+    "Last restored %@" : {
+
+    },
+    "Manual backup input for secret data." : {
+
+    },
+    "No secret file selected" : {
+
+    },
+    "OK" : {
+
+    },
+    "Output Format" : {
+
+    },
+    "Paste secret manually (backup)" : {
+
+    },
+    "Processed %@" : {
+
+    },
+    "Processing…" : {
+
+    },
+    "Public Key" : {
+
+    },
+    "Remove Secret File" : {
+
+    },
+    "Restore" : {
+
+    },
+    "Restore Secret Key" : {
+
+    },
+    "Restoring…" : {
+
+    },
+    "Scan or print this QR code to recover your secret material." : {
+
+    },
+    "Scan QR" : {
+
+    },
+    "Scan Secret QR" : {
+
+    },
+    "Secret Data" : {
+
+    },
+    "Secret Key File" : {
+
+    },
+    "Share Restored Key" : {
+
+    }
+  },
+  "version" : "1.1"
+}
