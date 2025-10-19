@@ -11,6 +11,9 @@
         }
       }
     },
+    "Binary Output QR" : {
+
+    },
     "Camera access is required to scan QR codes." : {
       "localizations" : {
         "zh-Hans" : {
@@ -382,6 +385,7 @@
       }
     },
     "Raw Binary Output" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

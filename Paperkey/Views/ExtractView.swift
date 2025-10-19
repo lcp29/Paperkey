@@ -96,6 +96,9 @@ struct ExtractView: View {
             } label: {
                 Label("Import Secret Key", systemImage: "square.and.arrow.down")
             }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .disabled(viewModel.isProcessing)
         }
     }
@@ -143,13 +146,14 @@ struct ExtractView: View {
                         Label("Export as TXT", systemImage: "square.and.arrow.up")
                     }
                     .buttonStyle(.borderedProminent)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .controlSize(.large)
+                    .frame(maxWidth: .infinity)
                 }
             }
         case .binary:
             if let qr = viewModel.qrImage {
                 VStack(alignment: .center, spacing: 12) {
-                    Text("Raw Binary Output")
+                    Text("Binary Output QR")
                         .font(.headline)
                     Picker("Error Correction", selection: $viewModel.correctionLevel) {
                         ForEach(ExtractViewModel.QRCorrectionLevel.allCases) { level in
@@ -179,6 +183,8 @@ struct ExtractView: View {
                             Label("Export as PNG", systemImage: "square.and.arrow.up")
                         }
                         .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                        .frame(maxWidth: .infinity)
                         
                         Button {
                             guard let payload = viewModel.binaryPayload else { return }
@@ -189,6 +195,8 @@ struct ExtractView: View {
                             Label("Export as BIN", systemImage: "arrow.down.doc")
                         }
                         .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .frame(maxWidth: .infinity)

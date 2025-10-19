@@ -116,6 +116,9 @@ struct RestoreView: View {
             } label: {
                 Label("Import Public Key", systemImage: "square.and.arrow.down")
             }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .disabled(viewModel.isProcessing)
         }
     }
@@ -134,6 +137,8 @@ struct RestoreView: View {
                     Label("Import Secret File", systemImage: "doc.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .frame(maxWidth: .infinity)
                 .disabled(viewModel.isProcessing)
                 
                 Button {
@@ -144,6 +149,8 @@ struct RestoreView: View {
                     Label("Import Secret BIN", systemImage: "tray.and.arrow.down")
                 }
                 .buttonStyle(.bordered)
+                .controlSize(.large)
+                .frame(maxWidth: .infinity)
                 .disabled(viewModel.isProcessing)
                 
                 Button {
@@ -152,6 +159,8 @@ struct RestoreView: View {
                     Label("Scan QR", systemImage: "qrcode.viewfinder")
                 }
                 .buttonStyle(.bordered)
+                .controlSize(.large)
+                .frame(maxWidth: .infinity)
                 .disabled(viewModel.isProcessing)
             }
             if viewModel.hasImportedSecret {
@@ -161,6 +170,8 @@ struct RestoreView: View {
                     Label("Remove Secret File", systemImage: "trash")
                 }
                 .buttonStyle(.bordered)
+                .controlSize(.large)
+                .frame(maxWidth: .infinity)
                 .disabled(viewModel.isProcessing)
             }
             DisclosureGroup(isExpanded: $manualSecretExpanded) {
@@ -202,10 +213,10 @@ struct RestoreView: View {
     private var secretFileStatus: some View {
         Group {
             if viewModel.hasImportedSecret {
-                Label(viewModel.secretFileName, systemImage: "doc.text.fill")
+                Label(viewModel.secretFileName, systemImage: viewModel.secretStatusSystemImage)
                     .font(.subheadline)
             } else {
-                Label("No secret file selected", systemImage: "doc.text")
+                Label("No secret file selected", systemImage: viewModel.secretStatusSystemImage)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -223,6 +234,7 @@ struct RestoreView: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
+            .controlSize(.large)
             .disabled(viewModel.isProcessing)
         }
     }
@@ -258,6 +270,8 @@ struct RestoreView: View {
                 Label("Share Restored Key", systemImage: "square.and.arrow.up")
             }
             .buttonStyle(.bordered)
+            .controlSize(.large)
+            .frame(maxWidth: .infinity)
         }
     }
 }

@@ -27,6 +27,13 @@ final class RestoreViewModel: ObservableObject {
     @Published private(set) var isProcessing = false
     @Published private(set) var lastRestored: Date?
     
+    var secretStatusSystemImage: String {
+        if scannedBinaryPayload != nil {
+            return "externaldrive.fill"
+        }
+        return hasImportedSecret ? "doc.text.fill" : "doc.text"
+    }
+    
     func handleManualSecretInputChange(_ newValue: String) {
         let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
