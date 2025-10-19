@@ -59,7 +59,6 @@ final class ExtractViewModel: ObservableObject {
     @Published private(set) var isProcessing = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var fileName: String = String(localized: "No file selected")
-    @Published private(set) var lastUpdated: Date?
     @Published var pendingAlert: AlertState?
     
     private let outputWidth: UInt = 78
@@ -135,7 +134,6 @@ final class ExtractViewModel: ObservableObject {
             }
             
             errorMessage = nil
-            lastUpdated = Date()
         } catch {
             if case ExtractionError.qrGenerationFailed = error,
                let previous = previousCorrection {

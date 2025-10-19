@@ -236,12 +236,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在恢复前导入密钥文本文件、扫描或粘贴秘密数据。"
+            "value" : "在恢复前导入密钥文本文件、扫描或粘贴备份私钥数据。"
           }
         }
       }
     },
     "Last restored %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -372,6 +373,7 @@
       }
     },
     "Processed %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

@@ -14,6 +14,7 @@ final class RestoreViewModel: ObservableObject {
     @Published private(set) var publicKeyURL: URL?
     @Published private(set) var publicKeyData: Data?
     @Published private(set) var publicKeyName: String = String(localized: "No file selected")
+    @Published private(set) var hasImportedPublicKey = false
     @Published var secretInput: String = ""
     @Published private(set) var secretFileName: String = String(localized: "No secret file selected")
     @Published private(set) var secretFileContents: String?
@@ -25,7 +26,6 @@ final class RestoreViewModel: ObservableObject {
     @Published private(set) var successMessage: String?
     @Published private(set) var errorMessage: String?
     @Published private(set) var isProcessing = false
-    @Published private(set) var lastRestored: Date?
     
     var secretStatusSystemImage: String {
         if scannedBinaryPayload != nil {
@@ -56,6 +56,7 @@ final class RestoreViewModel: ObservableObject {
             publicKeyData = data
             publicKeyURL = url
             publicKeyName = url.lastPathComponent
+            hasImportedPublicKey = true
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -131,7 +132,6 @@ final class RestoreViewModel: ObservableObject {
             restoredKeyData = restored
             restoredFileName = makeFileName()
             successMessage = String(localized: "Secret key restored (\(restored.count) bytes).")
-            lastRestored = Date()
         } catch {
             errorMessage = error.localizedDescription
             restoredKeyData = nil
@@ -191,6 +191,13 @@ final class RestoreViewModel: ObservableObject {
         secretFileName = String(localized: "No secret file selected")
         scannedBinaryPayload = nil
         hasImportedSecret = false
+    }
+    
+    func clearImportedPublicKey() {
+        publicKeyData = nil
+        publicKeyURL = nil
+        publicKeyName = String(localized: "No file selected")
+        hasImportedPublicKey = false
     }
     
     private func prepareSecrets(from string: String) throws -> (data: Data, inputType: PaperkeyKit.DataType) {

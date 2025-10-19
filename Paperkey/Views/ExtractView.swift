@@ -64,16 +64,9 @@ struct ExtractView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Secret Key File")
                 .font(.headline)
-            Group {
-                Text(viewModel.fileName)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                if let updated = viewModel.lastUpdated {
-                    Text("Processed \(updated, style: .relative)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
+            Text(viewModel.fileName)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
             if let message = viewModel.errorMessage {
                 Label(message, systemImage: "exclamationmark.triangle.fill")
                     .font(.caption)
@@ -86,11 +79,11 @@ struct ExtractView: View {
                 showFileImporter = true
             } label: {
                 Label("Import Secret Key", systemImage: "square.and.arrow.down")
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .font(.headline)
-            .frame(maxWidth: .infinity, alignment: .leading)
             .buttonBorderShape(.roundedRectangle(radius: 12))
             .disabled(viewModel.isProcessing)
         }
@@ -137,6 +130,7 @@ struct ExtractView: View {
                         isExporting = true
                     } label: {
                         Label("Export as TXT", systemImage: "square.and.arrow.up")
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
@@ -176,6 +170,7 @@ struct ExtractView: View {
                             isExporting = true
                         } label: {
                             Label("Export as PNG", systemImage: "square.and.arrow.up")
+                                .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
@@ -190,6 +185,7 @@ struct ExtractView: View {
                             isExporting = true
                         } label: {
                             Label("Export as BIN", systemImage: "arrow.down.doc")
+                                .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)

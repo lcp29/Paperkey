@@ -95,18 +95,29 @@ struct RestoreView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Public Key")
                 .font(.headline)
-            Text(viewModel.publicKeyName)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            HStack {
+                if viewModel.hasImportedPublicKey {
+                    Button(role: .destructive) {
+                        viewModel.clearImportedPublicKey()
+                    } label: {
+                        Label(String(localized: "Remove"), systemImage: "trash")
+                    }
+                    .font(.headline)
+                    .disabled(viewModel.isProcessing)
+                }
+                Text(viewModel.publicKeyName)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
             Button {
                 importerDestination = .publicKey
                 importerAllowedTypes = [.data]
                 showImporter = true
             } label: {
-                Label("Import Public Key", systemImage: "square.and.arrow.down")
+                Label(String(localized: "Import Public Key"), systemImage: "square.and.arrow.down")
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .font(.headline)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -122,6 +133,19 @@ struct RestoreView: View {
                 .font(.headline)
             secretFileStatus
             HStack(spacing: 8) {
+                Button {
+                    showScanner = true
+                } label: {
+                    VStack {
+                        Image(systemName: "qrcode.viewfinder")
+                        Text("Scan QR")
+                    }.frame(maxHeight: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .font(.headline)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
+                .disabled(viewModel.isProcessing)
                 Button {
                     importerDestination = .secretText
                     importerAllowedTypes = [.utf8PlainText, .plainText, .text]
@@ -152,19 +176,6 @@ struct RestoreView: View {
                 .font(.headline)
                 .buttonBorderShape(.roundedRectangle(radius: 12))
                 .disabled(viewModel.isProcessing)
-                Button {
-                    showScanner = true
-                } label: {
-                    VStack {
-                        Image(systemName: "qrcode.viewfinder")
-                        Text("Scan QR")
-                    }.frame(maxHeight: .infinity)
-                }
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .font(.headline)
-                .buttonBorderShape(.roundedRectangle(radius: 12))
-                .disabled(viewModel.isProcessing)
             }
             DisclosureGroup(isExpanded: $manualSecretExpanded) {
                 TextEditor(text: $viewModel.secretInput)
@@ -185,8 +196,12 @@ struct RestoreView: View {
                         viewModel.secretInput.removeAll()
                     } label: {
                         Label("Clear Text", systemImage: "xmark.circle")
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
+                    .controlSize(.large)
+                    .font(.headline)
+                    .buttonBorderShape(.roundedRectangle(radius: 12))
                     .disabled(viewModel.secretInput.isEmpty || viewModel.isProcessing)
                 }
             } label: {
@@ -206,14 +221,16 @@ struct RestoreView: View {
         Group {
             if viewModel.hasImportedSecret {
                 HStack {
-                    Label(viewModel.secretFileName, systemImage: viewModel.secretStatusSystemImage)
-                        .font(.subheadline)
                     Button(role: .destructive) {
                         viewModel.clearImportedSecret()
                     } label: {
-                        Text("Remove")
+                        Label(String(localized: "Remove"), systemImage: "trash")
                     }
+                    .font(.headline)
                     .disabled(viewModel.isProcessing)
+                    Label(viewModel.secretFileName, systemImage: viewModel.secretStatusSystemImage)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
             } else {
                 Label("No secret file selected", systemImage: viewModel.secretStatusSystemImage)
@@ -255,11 +272,6 @@ struct RestoreView: View {
             Label(error, systemImage: "exclamationmark.triangle.fill")
                 .foregroundStyle(.red)
         }
-        if let restoredAt = viewModel.lastRestored {
-            Text("Last restored \(restoredAt, style: .relative)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-        }
     }
     
     private func shareSection(for data: Data) -> some View {
@@ -270,8 +282,9 @@ struct RestoreView: View {
                 showShareSheet = true
             } label: {
                 Label("Share Restored Key", systemImage: "square.and.arrow.up")
+                    .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .frame(maxWidth: .infinity)
             .buttonBorderShape(.roundedRectangle(radius: 12))
