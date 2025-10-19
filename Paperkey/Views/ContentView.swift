@@ -15,6 +15,7 @@ struct ContentView: View {
     private enum Tab: Hashable {
         case extract
         case restore
+        case about
     }
     
     var body: some View {
@@ -34,6 +35,14 @@ struct ContentView: View {
                 Label("Restore", systemImage: "key.fill")
             }
             .tag(Tab.restore)
+            
+            NavigationStack {
+                AboutView()
+            }
+            .tabItem {
+                Label("About", systemImage: "info.circle")
+            }
+            .tag(Tab.about)
         }
         .onOpenURL { url in
             handleIncoming(url: url)

@@ -37,17 +37,6 @@ struct RestoreView: View {
             .padding()
         }
         .navigationTitle("Restore")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    importerDestination = .publicKey
-                    importerAllowedTypes = [.data]
-                    showImporter = true
-                } label: {
-                    Label("Import Public Key", systemImage: "square.and.arrow.down")
-                }
-            }
-        }
         .fileImporter(
             isPresented: $showImporter,
             allowedContentTypes: importerAllowedTypes,

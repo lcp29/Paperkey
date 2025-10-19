@@ -25,15 +25,6 @@ struct ExtractView: View {
             .padding()
         }
         .navigationTitle("Extract")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showFileImporter = true
-                } label: {
-                    Label("Import Secret Key", systemImage: "square.and.arrow.down")
-                }
-            }
-        }
         .fileImporter(
             isPresented: $showFileImporter,
             allowedContentTypes: [.data, .utf8PlainText, .plainText],
@@ -153,7 +144,7 @@ struct ExtractView: View {
         case .binary:
             if let qr = viewModel.qrImage {
                 VStack(alignment: .center, spacing: 12) {
-                    Text("Binary Output QR")
+                    Text("Raw Binary Output")
                         .font(.headline)
                     Picker("Error Correction", selection: $viewModel.correctionLevel) {
                         ForEach(ExtractViewModel.QRCorrectionLevel.allCases) { level in

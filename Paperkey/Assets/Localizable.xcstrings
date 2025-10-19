@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "About" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于"
+          }
+        }
+      }
+    },
     "Base16" : {
       "localizations" : {
         "zh-Hans" : {
@@ -11,8 +21,15 @@
         }
       }
     },
-    "Binary Output QR" : {
-
+    "Build" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "构建版本"
+          }
+        }
+      }
     },
     "Camera access is required to scan QR codes." : {
       "localizations" : {
@@ -304,6 +321,16 @@
         }
       }
     },
+    "Paperkey helps you protect your GPG secret keys with offline backups." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paperkey帮助您通过离线备份保护GPG密钥。"
+          }
+        }
+      }
+    },
     "Paste secret manually" : {
       "localizations" : {
         "zh-Hans" : {
@@ -385,7 +412,6 @@
       }
     },
     "Raw Binary Output" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -561,6 +587,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法访问相机进行扫描。"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本"
           }
         }
       }
