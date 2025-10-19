@@ -51,6 +51,16 @@
         }
       }
     },
+    "Community" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "社区"
+          }
+        }
+      }
+    },
     "Could not create a QR code for the extracted data." : {
       "localizations" : {
         "zh-Hans" : {
@@ -67,6 +77,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法使用提供的数据重建私钥。"
+          }
+        }
+      }
+    },
+    "Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本程序旨在希望能有所帮助，但并不提供任何明示或暗示的保证，包括但不限于对适销性或特定用途适用性的默示保证。"
           }
         }
       }
@@ -241,17 +261,6 @@
         }
       }
     },
-    "Last restored %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上次恢复 %@"
-          }
-        }
-      }
-    },
     "Legal" : {
       "localizations" : {
         "zh-Hans" : {
@@ -368,17 +377,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "手动粘贴密钥数据"
-          }
-        }
-      }
-    },
-    "Processed %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已处理 %@"
           }
         }
       }
@@ -579,6 +577,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "分享已恢复的密钥"
+          }
+        }
+      }
+    },
+    "Source Code" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "源代码"
           }
         }
       }

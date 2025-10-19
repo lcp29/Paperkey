@@ -38,6 +38,16 @@ struct AboutView: View {
                 LabeledContent(String(localized: "Version"), value: appVersion)
             }
             
+            Section(String(localized: "Community")) {
+                Link(String(localized: "Source Code"), destination: URL(string: "https://github.com/lcp29/Paperkey")!)
+                    .font(.body.weight(.medium))
+                Text(String(localized: "Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."))
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 4)
+            }
+            
             Section(String(localized: "Legal")) {
                 LabeledContent(String(localized: "License"), value: String(localized: "GNU GPL v2"))
                 NavigationLink {
