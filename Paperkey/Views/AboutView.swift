@@ -19,11 +19,6 @@ struct AboutView: View {
             ?? "—"
     }
     
-    private var appBuild: String {
-        Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
-            ?? "—"
-    }
-    
     var body: some View {
         List {
             Section {
@@ -41,7 +36,6 @@ struct AboutView: View {
             
             Section {
                 LabeledContent(String(localized: "Version"), value: appVersion)
-                LabeledContent(String(localized: "Build"), value: appBuild)
             }
             
             Section(String(localized: "Legal")) {

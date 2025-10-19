@@ -21,16 +21,6 @@
         }
       }
     },
-    "Build" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "构建版本"
-          }
-        }
-      }
-    },
     "Camera access is required to scan QR codes." : {
       "localizations" : {
         "zh-Hans" : {
