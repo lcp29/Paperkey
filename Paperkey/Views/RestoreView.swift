@@ -137,7 +137,7 @@ struct RestoreView: View {
                 .buttonStyle(.bordered)
                 .disabled(viewModel.isProcessing)
             }
-            if viewModel.secretFileContents != nil {
+            if viewModel.hasImportedSecret {
                 Button(role: .destructive) {
                     viewModel.clearImportedSecret()
                 } label: {
@@ -170,7 +170,7 @@ struct RestoreView: View {
                     .disabled(viewModel.secretInput.isEmpty || viewModel.isProcessing)
                 }
             } label: {
-                Text("Paste secret manually (backup)")
+                Text("Paste secret manually")
             }
         }
         .onAppear {
@@ -178,12 +178,13 @@ struct RestoreView: View {
         }
         .onChange(of: viewModel.secretInput) { newValue in
             manualSecretExpanded = !newValue.isEmpty
+            viewModel.handleManualSecretInputChange(newValue)
         }
     }
     
     private var secretFileStatus: some View {
         Group {
-            if viewModel.secretFileContents != nil {
+            if viewModel.hasImportedSecret {
                 Label(viewModel.secretFileName, systemImage: "doc.text.fill")
                     .font(.subheadline)
             } else {

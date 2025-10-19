@@ -26,6 +26,13 @@ final class ExtractViewModel: ObservableObject {
             case .base16: return .BASE16
             }
         }
+        
+        var displayName: String {
+            switch self {
+            case .binary: String(localized: "Binary (QR Code)")
+            case .base16: String(localized: "Base16 (Text)")
+            }
+        }
     }
     
     @Published var selectedFormat: OutputFormat = .binary {
@@ -50,7 +57,7 @@ final class ExtractViewModel: ObservableObject {
     }
     @Published private(set) var isProcessing = false
     @Published private(set) var errorMessage: String?
-    @Published private(set) var fileName: String = "No file selected"
+    @Published private(set) var fileName: String = String(localized: "No file selected")
     @Published private(set) var lastUpdated: Date?
     @Published var pendingAlert: AlertState?
     
@@ -131,8 +138,8 @@ final class ExtractViewModel: ObservableObject {
                 correctionLevel = previous
                 previousCorrectionLevel = nil
                 pendingAlert = .init(
-                    title: "QR Generation Failed",
-                    message: "The selected correction level could not produce a QR code. It was reset to \(previous.displayName)."
+                    title: String(localized: "QR Generation Failed"),
+                    message: String(localized: "The selected correction level could not produce a QR code. It was reset to \(previous.displayName).")
                 )
             } else {
                 errorMessage = error.localizedDescription
@@ -194,11 +201,11 @@ extension ExtractViewModel {
         var errorDescription: String? {
             switch self {
             case .extractionFailed:
-                return "Failed to extract secret data from the supplied key."
+                return String(localized: "Failed to extract secret data from the supplied key.")
             case .encodingFailed:
-                return "The extracted data could not be converted to text."
+                return String(localized: "The extracted data could not be converted to text.")
             case .qrGenerationFailed:
-                return "Could not create a QR code for the extracted data."
+                return String(localized: "Could not create a QR code for the extracted data.")
             }
         }
     }
@@ -238,10 +245,10 @@ extension ExtractViewModel {
         
         var displayName: String {
             switch self {
-            case .low: return "Low"
-            case .medium: return "Medium"
-            case .quartile: return "Quartile"
-            case .high: return "High"
+            case .low: return String(localized: "Low")
+            case .medium: return String(localized: "Medium")
+            case .quartile: return String(localized: "Quartile")
+            case .high: return String(localized: "High")
             }
         }
     }

@@ -7,9 +7,15 @@
 
 import SwiftUI
 import AVFoundation
+import CoreImage
 
 struct QRScannerView: UIViewControllerRepresentable {
-    typealias ResultHandler = (Result<String, Error>) -> Void
+    struct Payload {
+        let rawData: Data
+        let stringValue: String?
+    }
+    
+    typealias ResultHandler = (Result<Payload, Error>) -> Void
     
     var onResult: ResultHandler
     
@@ -145,14 +151,29 @@ extension QRScannerView {
         ) {
             guard !didFinish else { return }
             guard let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
-                  object.type == .qr,
-                  let value = object.stringValue else {
+                  object.type == .qr else {
+                return
+            }
+            
+            let stringValue = object.stringValue
+            var rawData: Data?
+            if let descriptor = object.descriptor as? CIQRCodeDescriptor {
+                rawData = descriptor.errorCorrectedPayload
+                rawData = QRByteModeDecoder.decode(from: rawData)
+            } else {
+                rawData = nil
+            }
+            
+            let hexString = rawData?.map { String(format: "%02x", $0) }.joined()
+            
+            guard let payloadData = rawData else {
                 return
             }
             
             didFinish = true
             controller?.stopScanning()
-            onResult(.success(value))
+            let payload = Payload(rawData: payloadData, stringValue: stringValue)
+            onResult(.success(payload))
         }
         
         func report(error: ScannerError) {
@@ -170,9 +191,9 @@ extension QRScannerView {
         var errorDescription: String? {
             switch self {
             case .permissionDenied:
-                return "Camera access is required to scan QR codes."
+                return String(localized: "Camera access is required to scan QR codes.")
             case .cameraUnavailable:
-                return "Unable to access the camera for scanning."
+                return String(localized: "Unable to access the camera for scanning.")
             }
         }
     }

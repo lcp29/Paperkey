@@ -103,7 +103,7 @@ struct ExtractView: View {
     private var formatPicker: some View {
         Picker("Output Format", selection: $viewModel.selectedFormat) {
             ForEach(ExtractViewModel.OutputFormat.allCases) { format in
-                Text(format.rawValue).tag(format)
+                Text(format.displayName).tag(format)
             }
         }
         .pickerStyle(.segmented)

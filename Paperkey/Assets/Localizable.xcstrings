@@ -1,11 +1,55 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Base16 (Text)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base16文本"
+          }
+        }
+      }
+    },
+    "Binary (QR Code)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二维码"
+          }
+        }
+      }
+    },
     "Binary Output QR" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二维码输出"
+          }
+        }
+      }
+    },
+    "Camera access is required to scan QR codes." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描二维码需要相机访问权限。"
+          }
+        }
+      }
     },
     "Clear Text" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空文本"
+          }
+        }
+      }
     },
     "Close" : {
       "localizations" : {
@@ -17,8 +61,35 @@
         }
       }
     },
+    "Could not create a QR code for the extracted data." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法为导出的数据创建二维码。"
+          }
+        }
+      }
+    },
+    "Could not rebuild the secret key with the provided data." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法使用提供的数据重建私钥。"
+          }
+        }
+      }
+    },
     "Error Correction" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "纠错级别"
+          }
+        }
+      }
     },
     "Export" : {
       "localizations" : {
@@ -31,85 +102,444 @@
       }
     },
     "Export as PNG" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出为 PNG 文件"
+          }
+        }
+      }
     },
     "Export as TXT" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出为 TXT 文件"
+          }
+        }
+      }
     },
     "Extract" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提取"
+          }
+        }
+      }
     },
     "Extracted Base16 Output" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base16 文本输出"
+          }
+        }
+      }
+    },
+    "Failed to extract secret data from the supplied key." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出密钥备份失败。"
+          }
+        }
+      }
+    },
+    "High" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更高"
+          }
+        }
+      }
     },
     "Ignore CRC Errors" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忽略 CRC 错误"
+          }
+        }
+      }
+    },
+    "Import a matching public key before restoring." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在恢复之前导入与之匹配的公钥。"
+          }
+        }
+      }
     },
     "Import Public Key" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入公钥"
+          }
+        }
+      }
     },
     "Import Secret File" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入密钥备份文件"
+          }
+        }
+      }
     },
     "Import Secret Key" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入私钥"
+          }
+        }
+      }
+    },
+    "Import the secret text file, scan, or paste the secret data before restoring." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在恢复前导入密钥文本文件、扫描或粘贴秘密数据。"
+          }
+        }
+      }
     },
     "Last restored %@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次恢复 %@"
+          }
+        }
+      }
+    },
+    "Low" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "低"
+          }
+        }
+      }
     },
     "Manual backup input for secret data." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于秘密数据的手动备份输入。"
+          }
+        }
+      }
+    },
+    "Medium" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中"
+          }
+        }
+      }
+    },
+    "No file selected" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未选择文件"
+          }
+        }
+      }
     },
     "No secret file selected" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未选择密钥备份文件"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
+          }
+        }
+      }
     },
     "Output Format" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出格式"
+          }
+        }
+      }
     },
-    "Paste secret manually (backup)" : {
-
+    "Paste secret manually" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手动粘贴密钥数据"
+          }
+        }
+      }
     },
     "Processed %@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已处理 %@"
+          }
+        }
+      }
     },
     "Processing…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在处理…"
+          }
+        }
+      }
     },
     "Public Key" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公钥"
+          }
+        }
+      }
+    },
+    "QR Generation Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二维码生成失败"
+          }
+        }
+      }
+    },
+    "QR payload received." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已接收二维码数据。"
+          }
+        }
+      }
+    },
+    "Quartile" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高"
+          }
+        }
+      }
     },
     "Remove Secret File" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除密钥备份文件"
+          }
+        }
+      }
     },
     "Restore" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复"
+          }
+        }
+      }
     },
     "Restore Secret Key" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复私钥"
+          }
+        }
+      }
     },
     "Restoring…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在恢复…"
+          }
+        }
+      }
     },
     "Scan or print this QR code to recover your secret material." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描或打印此二维码以恢复您的备份密钥。"
+          }
+        }
+      }
     },
     "Scan QR" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描二维码"
+          }
+        }
+      }
     },
     "Scan Secret QR" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描二维码"
+          }
+        }
+      }
+    },
+    "Scanned QR payload" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已扫描的二维码数据"
+          }
+        }
+      }
     },
     "Secret Data" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "秘密数据"
+          }
+        }
+      }
+    },
+    "Secret data was not recognized as base16 text or binary payload." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未能将密钥备份识别为 Base16 文本或二进制数据。"
+          }
+        }
+      }
     },
     "Secret Key File" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "私钥文件"
+          }
+        }
+      }
+    },
+    "Secret key restored (%lld bytes)." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "私钥已恢复（%lld 字节）。"
+          }
+        }
+      }
     },
     "Share Restored Key" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分享已恢复的密钥"
+          }
+        }
+      }
+    },
+    "The extracted data could not be converted to text." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提取的数据无法转换到文本。"
+          }
+        }
+      }
+    },
+    "The provided secret text is not valid UTF-8." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供的密钥文本不是有效的 UTF-8。"
+          }
+        }
+      }
+    },
+    "The selected correction level could not produce a QR code. It was reset to %@." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法用所选纠错级别创建二维码。已将纠错级别重置为“%@”。"
+          }
+        }
+      }
+    },
+    "Unable to access the camera for scanning." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法访问相机进行扫描。"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"
