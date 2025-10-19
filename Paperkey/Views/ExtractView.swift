@@ -89,7 +89,9 @@ struct ExtractView: View {
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
+            .font(.headline)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .buttonBorderShape(.roundedRectangle(radius: 12))
             .disabled(viewModel.isProcessing)
         }
     }
@@ -138,7 +140,9 @@ struct ExtractView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
+                    .font(.headline)
                     .frame(maxWidth: .infinity)
+                    .buttonBorderShape(.roundedRectangle(radius: 12))
                 }
             }
         case .binary:
@@ -175,7 +179,9 @@ struct ExtractView: View {
                         }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
+                        .font(.headline)
                         .frame(maxWidth: .infinity)
+                        .buttonBorderShape(.roundedRectangle(radius: 12))
                         
                         Button {
                             guard let payload = viewModel.binaryPayload else { return }
@@ -187,7 +193,9 @@ struct ExtractView: View {
                         }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
+                        .font(.headline)
                         .frame(maxWidth: .infinity)
+                        .buttonBorderShape(.roundedRectangle(radius: 12))
                     }
                 }
                 .frame(maxWidth: .infinity)

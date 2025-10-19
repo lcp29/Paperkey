@@ -201,22 +201,22 @@
         }
       }
     },
+    "Import Secret Base16 Text" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入Base16密钥文件"
+          }
+        }
+      }
+    },
     "Import Secret BIN" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "导入 BIN 密钥文件"
-          }
-        }
-      }
-    },
-    "Import Secret File" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "导入密钥备份文件"
           }
         }
       }
@@ -451,12 +451,12 @@
         }
       }
     },
-    "Remove Secret File" : {
+    "Remove" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "移除密钥备份文件"
+            "value" : "清除"
           }
         }
       }
@@ -536,7 +536,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "秘密数据"
+            "value" : "密钥数据"
           }
         }
       }

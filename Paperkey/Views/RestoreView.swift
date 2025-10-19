@@ -104,12 +104,16 @@ struct RestoreView: View {
                 showImporter = true
             } label: {
                 Label("Import Public Key", systemImage: "square.and.arrow.down")
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
             .controlSize(.large)
+            .font(.headline)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .buttonBorderShape(.roundedRectangle(radius: 12))
             .disabled(viewModel.isProcessing)
         }
+        .frame(maxWidth: .infinity)
     }
     
     private var secretInputSection: some View {
@@ -117,50 +121,49 @@ struct RestoreView: View {
             Text("Secret Data")
                 .font(.headline)
             secretFileStatus
-            HStack(spacing: 12) {
+            HStack(spacing: 8) {
                 Button {
                     importerDestination = .secretText
                     importerAllowedTypes = [.utf8PlainText, .plainText, .text]
                     showImporter = true
                 } label: {
-                    Label("Import Secret File", systemImage: "doc.badge.plus")
+                    VStack {
+                        Image(systemName: "doc.badge.plus")
+                        Text("Import Secret Base16 Text")
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.bordered)
                 .controlSize(.large)
-                .frame(maxWidth: .infinity)
+                .font(.headline)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
                 .disabled(viewModel.isProcessing)
-                
                 Button {
                     importerDestination = .secretBinary
                     importerAllowedTypes = [.data]
                     showImporter = true
                 } label: {
-                    Label("Import Secret BIN", systemImage: "tray.and.arrow.down")
+                    VStack {
+                        Image(systemName: "tray.and.arrow.down")
+                        Text("Import Secret BIN")
+                    }.frame(maxHeight: .infinity)
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
-                .frame(maxWidth: .infinity)
+                .font(.headline)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
                 .disabled(viewModel.isProcessing)
-                
                 Button {
                     showScanner = true
                 } label: {
-                    Label("Scan QR", systemImage: "qrcode.viewfinder")
+                    VStack {
+                        Image(systemName: "qrcode.viewfinder")
+                        Text("Scan QR")
+                    }.frame(maxHeight: .infinity)
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
-                .frame(maxWidth: .infinity)
-                .disabled(viewModel.isProcessing)
-            }
-            if viewModel.hasImportedSecret {
-                Button(role: .destructive) {
-                    viewModel.clearImportedSecret()
-                } label: {
-                    Label("Remove Secret File", systemImage: "trash")
-                }
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .frame(maxWidth: .infinity)
+                .font(.headline)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
                 .disabled(viewModel.isProcessing)
             }
             DisclosureGroup(isExpanded: $manualSecretExpanded) {
@@ -202,8 +205,16 @@ struct RestoreView: View {
     private var secretFileStatus: some View {
         Group {
             if viewModel.hasImportedSecret {
-                Label(viewModel.secretFileName, systemImage: viewModel.secretStatusSystemImage)
-                    .font(.subheadline)
+                HStack {
+                    Label(viewModel.secretFileName, systemImage: viewModel.secretStatusSystemImage)
+                        .font(.subheadline)
+                    Button(role: .destructive) {
+                        viewModel.clearImportedSecret()
+                    } label: {
+                        Text("Remove")
+                    }
+                    .disabled(viewModel.isProcessing)
+                }
             } else {
                 Label("No secret file selected", systemImage: viewModel.secretStatusSystemImage)
                     .font(.subheadline)
@@ -224,6 +235,8 @@ struct RestoreView: View {
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
+            .font(.headline)
+            .buttonBorderShape(.roundedRectangle(radius: 12))
             .disabled(viewModel.isProcessing)
         }
     }
@@ -261,6 +274,7 @@ struct RestoreView: View {
             .buttonStyle(.bordered)
             .controlSize(.large)
             .frame(maxWidth: .infinity)
+            .buttonBorderShape(.roundedRectangle(radius: 12))
         }
     }
 }
