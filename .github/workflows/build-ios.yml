@@ -8,7 +8,9 @@ jobs:
       with:
         configuration: Release
         export-method: ad-hoc
-        project-path: ${{ github.workspace }}/Paperkey.xcodeproj
+        scheme: Release
+        project-path: Paperkey.xcodeproj
+        workspace-path: Paperkey.xcodeproj/project.xcworkspace
         output-path: build-${{ github.sha }}.ipa
         team-id: ${{ secrets.TEAM_ID }}
         team-name: ${{ secrets.TEAM_NAME }}
