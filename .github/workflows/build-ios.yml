@@ -1,9 +1,16 @@
-- uses: sparkfabrik/ios-build-action@v2.3.2
-  with:
-    configuration: Release
-    export-method: ad-hoc
-    project-path: Paperkey.xcodeproj
-    output-path: build-${{ github.sha }}.ipa
-    team-id: ${{ secrets.TEAM_ID }}
-    team-name: ${{ secrets.TEAM_NAME }}
-    ios-app-id: com.helmholtz.Paperkey
+
+on: push
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+    - name: Build iOS Action
+      uses: sparkfabrik/ios-build-action@v2.3.2
+      with:
+        configuration: Release
+        export-method: ad-hoc
+        project-path: Paperkey.xcodeproj
+        output-path: build-${{ github.sha }}.ipa
+        team-id: ${{ secrets.TEAM_ID }}
+        team-name: ${{ secrets.TEAM_NAME }}
+        ios-app-id: com.helmholtz.Paperkey
