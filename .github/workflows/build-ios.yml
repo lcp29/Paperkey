@@ -15,8 +15,8 @@ jobs:
         project-path: Paperkey.xcodeproj
         workspace-path: Paperkey.xcodeproj/project.xcworkspace
         output-path: .
-        team-id: ${{ secrets.TEAM_ID }}
-        team-name: ${{ secrets.TEAM_NAME }}
         ios-app-id: com.helmholtz.Paperkey
+    - name: Make IPA
+      run: mkdir Payload & cp ./Build/Products/Release-iphoneos/Paperkey.app ./Payload & zip -r Paperkey.zip Peyload & mv Paperkey.zip Paperkey.ipa
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
