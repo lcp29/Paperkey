@@ -9,7 +9,7 @@ jobs:
       with:
         configuration: Release
         export-method: ad-hoc
-        scheme: Release
+        scheme: Archive
         project-path: Paperkey.xcodeproj
         workspace-path: Paperkey.xcodeproj/project.xcworkspace
         output-path: build-${{ github.sha }}.ipa
