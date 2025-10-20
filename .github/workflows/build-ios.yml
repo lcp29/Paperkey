@@ -3,6 +3,8 @@ jobs:
   build-ios:
     runs-on: macos-latest
     steps:
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: Build iOS Action
       uses: lcp29/ios-build-action@master
       with:
