@@ -4,7 +4,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - name: Build iOS Action
-      uses: lcp29/ios-build-action@main
+      uses: lcp29/ios-build-action@master
       with:
         configuration: Release
         export-method: ad-hoc
