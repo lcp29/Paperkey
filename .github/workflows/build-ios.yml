@@ -17,10 +17,7 @@ jobs:
         output-path: .
         ios-app-id: com.helmholtz.Paperkey
     - name: Make IPA
-      run: mkdir Payload \
-           cp -r ./Build/Products/Release-iphoneos/Paperkey.app ./Payload \
-           zip -r Paperkey.zip Payload \
-           mv Paperkey.zip Paperkey.ipa
+      run: rm -rf Payload Paperkey.ipa && mkdir Payload && cp -r ./Build/Products/Release-iphoneos/Paperkey.app ./Payload && zip -r Paperkey.ipa Payload && rm -rf Payload
     - uses: bxb100/action-upload-webdav@v1
       with:
         webdav_address: ${{secrets.address}}
