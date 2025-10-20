@@ -54,6 +54,8 @@ struct AboutView: View {
             Section(String(localized: "Community")) {
                 Link(String(localized: "Source Code"), destination: URL(string: "https://github.com/lcp29/Paperkey")!)
                     .font(.body.weight(.medium))
+                Link(String(localized: "Original paperkey library"), destination: URL(string: "https://github.com/dmshaw/paperkey")!)
+                    .font(.body)
                 Text(String(localized: "Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."))
                     .font(.footnote)
                     .foregroundStyle(.secondary)

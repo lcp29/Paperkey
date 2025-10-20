@@ -351,6 +351,16 @@
         }
       }
     },
+    "Original paperkey library" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paperkey库"
+          }
+        }
+      }
+    },
     "Output Format" : {
       "localizations" : {
         "zh-Hans" : {
