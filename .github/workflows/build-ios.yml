@@ -15,7 +15,7 @@ jobs:
         project-path: Paperkey.xcodeproj
         workspace-path: Paperkey.xcodeproj/project.xcworkspace
         output-path: build-${{ github.sha }}.ipa
-        team-id: ${{ secrets.TEAM_ID }}
+        team-id: 123456789 # ${{ secrets.TEAM_ID }}
         team-name: ${{ secrets.TEAM_NAME }}
         ios-app-id: com.helmholtz.Paperkey
         apple-key-id: 0
