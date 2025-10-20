@@ -18,6 +18,3 @@ jobs:
         team-id: ${{ secrets.TEAM_ID }}
         team-name: ${{ secrets.TEAM_NAME }}
         ios-app-id: com.helmholtz.Paperkey
-        apple-key-id: 0
-        apple-key-issuer-id: 0
-        apple-key-content: 0
