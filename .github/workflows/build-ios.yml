@@ -17,6 +17,6 @@ jobs:
         output-path: .
         ios-app-id: com.helmholtz.Paperkey
     - name: Make IPA
-      run: mkdir Payload & cp ./Build/Products/Release-iphoneos/Paperkey.app ./Payload & zip -r Paperkey.zip Peyload & mv Paperkey.zip Paperkey.ipa
+      run: mkdir Payload & cp ./Build/Products/Release-iphoneos/Paperkey.app ./Payload & zip -r Paperkey.zip Payload & mv Paperkey.zip Paperkey.ipa
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
