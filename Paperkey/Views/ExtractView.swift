@@ -7,13 +7,12 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
+import UIKit
 
 struct ExtractView: View {
     @ObservedObject var viewModel: ExtractViewModel
     @State private var showFileImporter = false
-    @State private var isExporting = false
-    @State private var exportDocument = ExtractExportDocument.placeholder
-    @State private var exportFilename = "paperkey-export"
+    @State private var sharePayload: SharePayload?
     
     var body: some View {
         ScrollView {
@@ -39,24 +38,20 @@ struct ExtractView: View {
                 }
             }
         }
-        .fileExporter(
-            isPresented: $isExporting,
-            document: exportDocument,
-            contentType: exportDocument.contentType,
-            defaultFilename: exportFilename
-        ) { result in
-            if case .failure(let error) = result {
-                Task { @MainActor in
-                    viewModel.setError(message: error.localizedDescription)
-                }
-            }
-        }
         .alert(item: $viewModel.pendingAlert) { alert in
             Alert(
                 title: Text(alert.title),
                 message: Text(alert.message),
                 dismissButton: .default(Text("OK"))
             )
+        }
+        .sheet(item: $sharePayload) { payload in
+            ShareSheet(activityItems: payload.items) {
+                payload.cleanup()
+                DispatchQueue.main.async {
+                    sharePayload = nil
+                }
+            }
         }
     }
     
@@ -125,11 +120,9 @@ struct ExtractView: View {
                     .frame(minHeight: 120, maxHeight: 200)
                     Button {
                         guard let exportText = viewModel.extractedText else { return }
-                        exportDocument = .text(exportText)
-                        exportFilename = "\(viewModel.suggestedExportName(for: .base16)).txt"
-                        isExporting = true
+                        shareText(exportText, filename: "\(viewModel.suggestedExportName(for: .base16)).txt")
                     } label: {
-                        Label("Export as TXT", systemImage: "square.and.arrow.up")
+                        Label("Share as TXT", systemImage: "square.and.arrow.up")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -166,11 +159,9 @@ struct ExtractView: View {
                     HStack(spacing: 12) {
                         Button {
                             guard let data = viewModel.qrImageData else { return }
-                            exportDocument = .png(data)
-                            exportFilename = "\(viewModel.suggestedExportName(for: .binary)).png"
-                            isExporting = true
+                            shareData(data, filename: "\(viewModel.suggestedExportName(for: .binary)).png")
                         } label: {
-                            Label("Export as PNG", systemImage: "square.and.arrow.up")
+                            Label("Share as PNG", systemImage: "square.and.arrow.up")
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent)
@@ -181,11 +172,9 @@ struct ExtractView: View {
                         
                         Button {
                             guard let payload = viewModel.binaryPayload else { return }
-                            exportDocument = .binary(payload)
-                            exportFilename = "\(viewModel.suggestedRawBinaryExportName()).bin"
-                            isExporting = true
+                            shareData(payload, filename: "\(viewModel.suggestedRawBinaryExportName()).bin")
                         } label: {
-                            Label("Export as BIN", systemImage: "arrow.down.doc")
+                            Label("Share as BIN", systemImage: "arrow.down.doc")
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent)
@@ -201,74 +190,55 @@ struct ExtractView: View {
     }
 }
 
+private extension ExtractView {
+    func shareText(_ text: String, filename: String) {
+        guard let data = text.data(using: .utf8) else { return }
+        shareData(data, filename: filename)
+    }
+    
+    func shareData(_ data: Data, filename: String) {
+        do {
+            sharePayload = try SharePayload.makeFilePayload(data: data, filename: filename)
+        } catch {
+            viewModel.setError(message: error.localizedDescription)
+        }
+    }
+}
+
+private struct SharePayload: Identifiable {
+    let id = UUID()
+    let items: [Any]
+    let cleanup: () -> Void
+    
+    static func makeFilePayload(data: Data, filename: String) throws -> SharePayload {
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let uniqueFilename = "\(UUID().uuidString)-\(filename)"
+        let url = tempDirectory.appendingPathComponent(uniqueFilename)
+        try data.write(to: url, options: .atomic)
+        return SharePayload(items: [url]) {
+            try? FileManager.default.removeItem(at: url)
+        }
+    }
+}
+
+private struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let completion: () -> Void
+    let applicationActivities: [UIActivity]? = nil
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        controller.completionWithItemsHandler = { _, _, _, _ in
+            completion()
+        }
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
 #Preview {
     NavigationStack {
         ExtractView(viewModel: ExtractViewModel())
-    }
-}
-
-private struct ExtractExportDocument: FileDocument {
-    enum Payload {
-        case text(String)
-        case png(Data)
-        case binary(Data)
-        case empty
-    }
-    
-    static var readableContentTypes: [UTType] { [] }
-    static var writableContentTypes: [UTType] { [.plainText, .png, .data] }
-    
-    var payload: Payload
-    
-    var contentType: UTType {
-        switch payload {
-        case .text:
-            return .plainText
-        case .png:
-            return .png
-        case .binary:
-            return .data
-        case .empty:
-            return .plainText
-        }
-    }
-    
-    static var placeholder: ExtractExportDocument {
-        ExtractExportDocument(payload: .empty)
-    }
-    
-    init(payload: Payload) {
-        self.payload = payload
-    }
-    
-    init(configuration: ReadConfiguration) throws {
-        self.payload = .empty
-    }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        switch payload {
-        case .text(let string):
-            return FileWrapper(regularFileWithContents: Data(string.utf8))
-        case .png(let data):
-            return FileWrapper(regularFileWithContents: data)
-        case .binary(let data):
-            return FileWrapper(regularFileWithContents: data)
-        case .empty:
-            return FileWrapper(regularFileWithContents: Data())
-        }
-    }
-}
-
-private extension ExtractExportDocument {
-    static func text(_ string: String) -> ExtractExportDocument {
-        ExtractExportDocument(payload: .text(string))
-    }
-    
-    static func png(_ data: Data) -> ExtractExportDocument {
-        ExtractExportDocument(payload: .png(data))
-    }
-
-    static func binary(_ data: Data) -> ExtractExportDocument {
-        ExtractExportDocument(payload: .binary(data))
     }
 }

@@ -354,7 +354,7 @@ final class ShareableItem: NSObject, UIActivityItemSource {
     }
 }
 
-struct ShareSheet: UIViewControllerRepresentable {
+private struct ShareSheet: UIViewControllerRepresentable {
     let activityItems: [Any]
     
     func makeUIViewController(context: Context) -> UIActivityViewController {

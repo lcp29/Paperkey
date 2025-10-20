@@ -111,36 +111,6 @@
         }
       }
     },
-    "Export as BIN" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "导出为 BIN 文件"
-          }
-        }
-      }
-    },
-    "Export as PNG" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "导出为 PNG 文件"
-          }
-        }
-      }
-    },
-    "Export as TXT" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "导出为 TXT 文件"
-          }
-        }
-      }
-    },
     "Extract" : {
       "localizations" : {
         "zh-Hans" : {
@@ -577,6 +547,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "私钥已恢复（%lld 字节）。"
+          }
+        }
+      }
+    },
+    "Share as BIN" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出为 BIN 文件"
+          }
+        }
+      }
+    },
+    "Share as PNG" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出为 PNG 文件"
+          }
+        }
+      }
+    },
+    "Share as TXT" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出为 TXT 文件"
           }
         }
       }
