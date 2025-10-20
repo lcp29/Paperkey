@@ -82,6 +82,7 @@ xcuserdata/
 # End of https://www.toptal.com/developers/gitignore/api/xcode
 
 /.build
+/Packages
 DerivedData/
 .swiftpm/configuration/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
