@@ -6,6 +6,8 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: Build iOS Action
       uses: lcp29/ios-build-action@master
       with:
