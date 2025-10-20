@@ -18,9 +18,13 @@ jobs:
         ios-app-id: com.helmholtz.Paperkey
     - name: Make IPA
       run: mkdir Payload \
-           cp -r ./Build/Products/Release-iphoneos/Paperkey.app \
-           ./Payload \
+           cp -r ./Build/Products/Release-iphoneos/Paperkey.app ./Payload \
            zip -r Paperkey.zip Payload \
            mv Paperkey.zip Paperkey.ipa
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
+    - uses: bxb100/action-upload-webdav@v1
+      with:
+        webdav_address: ${{secrets.address}}
+        webdav_username: ${{secrets.username}}
+        webdav_password: ${{secrets.password}}
+        webdav_upload_path: "/"
+        files: "./Paperkey.ipa"
