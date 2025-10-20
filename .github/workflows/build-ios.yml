@@ -8,7 +8,7 @@ jobs:
       with:
         configuration: Release
         export-method: ad-hoc
-        project-path: ..
+        project-path: ../../Paperkey.xcodeproj
         output-path: build-${{ github.sha }}.ipa
         team-id: ${{ secrets.TEAM_ID }}
         team-name: ${{ secrets.TEAM_NAME }}
