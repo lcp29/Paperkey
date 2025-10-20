@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AboutView: View {
+    @Environment(\.colorScheme)
+    private var colorScheme
+    
     private var appName: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
             ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
@@ -19,10 +22,20 @@ struct AboutView: View {
             ?? "—"
     }
     
+    private var iconName: String {
+        colorScheme == .dark ? "icon-iOS-Dark-1024x1024" : "icon-iOS-Default-1024x1024"
+    }
+    
     var body: some View {
         List {
             Section {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Image(iconName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 72)
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .accessibilityHidden(true)
                     Text(appName)
                         .font(.title2)
                         .fontWeight(.semibold)

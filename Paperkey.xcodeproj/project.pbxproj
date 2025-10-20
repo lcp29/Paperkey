@@ -16,9 +16,22 @@
 		82B664882EA51E8300C4CB82 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		82155CE52EA61B7B00BDEE1E /* Exceptions for "Packages" folder in "Paperkey" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				PaperkeyKit,
+			);
+			target = 827E173B2E9CD30E0089F24A /* Paperkey */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		824F7A942EA356F10046CC2E /* Packages */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				82155CE52EA61B7B00BDEE1E /* Exceptions for "Packages" folder in "Paperkey" target */,
+			);
 			path = Packages;
 			sourceTree = "<group>";
 		};
