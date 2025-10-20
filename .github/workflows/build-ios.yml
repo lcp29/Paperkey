@@ -1,0 +1,25 @@
+on: push
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+    - name: Build iOS Action
+      uses: lcp29/ios-build-action@master
+      with:
+        configuration: Release
+        export-method: ad-hoc
+        scheme: Paperkey
+        project-path: Paperkey.xcodeproj
+        workspace-path: Paperkey.xcodeproj/project.xcworkspace
+        output-path: build-${{ github.sha }}.ipa
+        team-id: ${{ secrets.TEAM_ID }}
+        team-name: ${{ secrets.TEAM_NAME }}
+        ios-app-id: com.helmholtz.Paperkey
+        apple-key-id: 0
+        apple-key-issuer-id: 0
+        apple-key-content: 0
