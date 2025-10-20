@@ -1,11 +1,10 @@
-
 on: push
 jobs:
   build-ios:
     runs-on: macos-latest
     steps:
     - name: Build iOS Action
-      uses: sparkfabrik/ios-build-action@v2.3.2
+      uses: lcp29/ios-build-action@v2.3.2
       with:
         configuration: Release
         export-method: ad-hoc
